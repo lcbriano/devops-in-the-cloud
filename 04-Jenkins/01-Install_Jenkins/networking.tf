@@ -87,6 +87,12 @@ resource "aws_security_group" "mtc_sg" {
   vpc_id      = aws_vpc.mtc_vpc.id
 }
 
+resource "aws_security_group" "test_sg" {
+  name        = "public_sg"
+  description = "Security group for public instances"
+  vpc_id      = aws_vpc.mtc_vpc.id
+}
+
 resource "aws_security_group_rule" "ingress_all" {
   type              = "ingress"
   from_port         = 0
@@ -95,6 +101,7 @@ resource "aws_security_group_rule" "ingress_all" {
   cidr_blocks       = [var.access_ip, var.cloud9_ip]
   security_group_id = aws_security_group.mtc_sg.id
 }
+
 
 resource "aws_security_group_rule" "egress_all" {
   type              = "egress"
